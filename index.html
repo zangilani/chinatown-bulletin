@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Chinatown Bulletin — 華埠快報</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --paper:#F4EEE4; --panel:#FBF7EF; --ink:#211A1A; --muted:#877C72;
+    --rule:#DcD2C4; --rule-soft:#E7DFD2;
+    --seal:#B0322B; --seal-soft:#F0DED9;
+    --jade:#2E6A56; --jade-soft:#DDE9E1;
+    --gold:#9F7622; --gold-soft:#F0E6D2;
+    --plum:#8E3457; --plum-soft:#F1DEE6;
+    --link:#8f2a24;
+    --shadow:0 1px 0 rgba(33,26,26,.04), 0 12px 30px -22px rgba(33,26,26,.5);
+    --serif:'Iowan Old Style','Palatino Linotype',Palatino,Georgia,'Times New Roman',serif;
+    --cjk:'PingFang TC','PingFang SC','Songti TC','Songti SC',serif;
+    --sans:-apple-system,BlinkMacSystemFont,'Helvetica Neue','Segoe UI',Arial,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --paper:#161110; --panel:#1E1815; --ink:#ECE3D5; --muted:#9A8E82;
+      --rule:#342B25; --rule-soft:#2A221D;
+      --seal:#E0695B; --seal-soft:#3A211D;
+      --jade:#79BBA1; --jade-soft:#1C2A24;
+      --gold:#D6A756; --gold-soft:#2C2416;
+      --plum:#E086A6; --plum-soft:#33202A;
+      --link:#E88C81;
+      --shadow:0 12px 30px -22px rgba(0,0,0,.8);
+    }
+  }
+  :root[data-theme="light"]{
+    --paper:#F4EEE4; --panel:#FBF7EF; --ink:#211A1A; --muted:#877C72;
+    --rule:#DcD2C4; --rule-soft:#E7DFD2;
+    --seal:#B0322B; --seal-soft:#F0DED9; --jade:#2E6A56; --jade-soft:#DDE9E1;
+    --gold:#9F7622; --gold-soft:#F0E6D2; --plum:#8E3457; --plum-soft:#F1DEE6; --link:#8f2a24;
+    --shadow:0 1px 0 rgba(33,26,26,.04), 0 12px 30px -22px rgba(33,26,26,.5);
+  }
+  :root[data-theme="dark"]{
+    --paper:#161110; --panel:#1E1815; --ink:#ECE3D5; --muted:#9A8E82;
+    --rule:#342B25; --rule-soft:#2A221D;
+    --seal:#E0695B; --seal-soft:#3A211D; --jade:#79BBA1; --jade-soft:#1C2A24;
+    --gold:#D6A756; --gold-soft:#2C2416; --plum:#E086A6; --plum-soft:#33202A; --link:#E88C81;
+    --shadow:0 12px 30px -22px rgba(0,0,0,.8);
+  }
+
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+  .wrap{max-width:1080px;margin:0 auto;padding:clamp(16px,4vw,44px);}
+  a{color:var(--link);text-decoration:none;}
+  a:hover{text-decoration:underline;text-underline-offset:2px;}
+  :focus-visible{outline:2px solid var(--seal);outline-offset:2px;border-radius:2px;}
+
+  .plate{border-top:3px solid var(--ink);border-bottom:1px solid var(--ink);padding:14px 0 18px;}
+  .plate .toprow{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;}
+  .title{font-family:var(--serif);text-align:center;margin:.28em 0 .06em;font-weight:800;letter-spacing:-.01em;line-height:.92;font-size:clamp(2.6rem,9vw,5.6rem);text-wrap:balance;}
+  .title .amp{color:var(--seal);}
+  .cjk{font-family:var(--cjk);text-align:center;color:var(--seal);font-size:clamp(1.1rem,3.6vw,1.7rem);letter-spacing:.5em;text-indent:.5em;font-weight:600;margin-top:2px;}
+  .dek{text-align:center;color:var(--muted);font-family:var(--serif);font-style:italic;font-size:clamp(.95rem,2.4vw,1.12rem);margin-top:10px;}
+  .plate .botrow{display:flex;justify-content:center;gap:10px 22px;flex-wrap:wrap;margin-top:12px;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;}
+  .plate .botrow b{color:var(--ink);}
+
+  nav.cats{position:sticky;top:0;z-index:5;background:var(--paper);display:flex;gap:8px;flex-wrap:wrap;justify-content:center;padding:12px 0;margin-bottom:8px;border-bottom:1px solid var(--rule);}
+  nav.cats a{font-size:.76rem;font-weight:700;letter-spacing:.04em;color:var(--ink);padding:6px 12px;border:1px solid var(--rule);border-radius:100px;display:inline-flex;align-items:center;gap:7px;background:var(--panel);}
+  nav.cats a:hover{text-decoration:none;border-color:var(--muted);}
+  .dot{width:8px;height:8px;border-radius:50%;flex:none;}
+  .dot.red{background:var(--seal)} .dot.gold{background:var(--gold)} .dot.jade{background:var(--jade)} .dot.plum{background:var(--plum)}
+
+  .lead{display:grid;grid-template-columns:1fr;gap:0;margin:26px 0 8px;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--panel);box-shadow:var(--shadow);}
+  .lead .kh{padding:8px 18px;background:var(--ink);color:var(--paper);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;display:flex;justify-content:space-between;gap:10px;}
+  .lead .kh .drop{opacity:.7}
+  .lead .body{padding:20px clamp(18px,3vw,30px) 24px;}
+  .lead h2{font-family:var(--serif);font-weight:800;line-height:1.05;font-size:clamp(1.5rem,4.4vw,2.2rem);margin:0 0 .35em;text-wrap:balance;}
+  .lead p{margin:0 0 1em;font-size:1.02rem;max-width:64ch;}
+  .lead p:last-child{margin-bottom:0;}
+  .lead .pull{color:var(--seal);font-weight:700;}
+
+  section{margin-top:40px;scroll-margin-top:64px;}
+  .sec-head{display:flex;align-items:center;gap:14px;padding-bottom:8px;border-bottom:2px solid var(--ink);margin-bottom:4px;}
+  .sec-head .num{font-family:var(--serif);font-weight:800;font-size:1.05rem;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;color:#fff;flex:none;}
+  .sec-head h3{font-family:var(--serif);font-weight:800;margin:0;font-size:clamp(1.3rem,3.6vw,1.75rem);letter-spacing:-.01em;flex:1;}
+  .sec-head .cn{font-family:var(--cjk);color:var(--muted);font-size:1rem;letter-spacing:.08em;}
+  .red .num{background:var(--seal)} .gold .num{background:var(--gold)} .jade .num{background:var(--jade)} .plum .num{background:var(--plum)}
+  .red h3{color:var(--seal)} .gold h3{color:var(--gold)} .jade h3{color:var(--jade)} .plum h3{color:var(--plum)}
+
+  .items{display:grid;gap:0;}
+  .item{display:grid;grid-template-columns:104px 1fr;gap:0 22px;padding:20px 4px;border-bottom:1px solid var(--rule-soft);align-items:start;}
+  .item:last-child{border-bottom:none;}
+  .when{font-family:var(--serif);}
+  .when .d{font-size:1.5rem;font-weight:800;line-height:1;font-variant-numeric:tabular-nums;}
+  .when .mo{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-family:var(--sans);font-weight:700;margin-top:4px;}
+  .when .yr{font-size:.72rem;color:var(--muted);font-family:var(--sans);}
+  .when .tag{display:inline-block;margin-top:8px;font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:4px;}
+  .red .when .tag{background:var(--seal-soft);color:var(--seal)}
+  .gold .when .tag{background:var(--gold-soft);color:var(--gold)}
+  .jade .when .tag{background:var(--jade-soft);color:var(--jade)}
+  .plum .when .tag{background:var(--plum-soft);color:var(--plum)}
+  .it-body h4{font-family:var(--serif);font-weight:700;margin:0 0 .3em;font-size:1.2rem;line-height:1.2;text-wrap:balance;}
+  .it-body p{margin:0 0 .55em;font-size:.96rem;color:var(--ink);max-width:62ch;}
+  .it-body .meta{font-size:.78rem;color:var(--muted);display:flex;gap:8px 14px;flex-wrap:wrap;align-items:center;}
+  .it-body .meta .src{font-weight:700;color:var(--ink);}
+  .it-body .meta .src.core::after{content:"★";color:var(--gold);margin-left:4px;font-size:.85em;}
+
+  .note{font-size:.86rem;color:var(--muted);font-style:italic;font-family:var(--serif);background:var(--panel);border-left:3px solid var(--rule);padding:10px 16px;border-radius:0 6px 6px 0;margin:14px 0 0;}
+
+  .sources{margin-top:52px;border-top:3px solid var(--ink);padding-top:22px;}
+  .sources h3{font-family:var(--serif);font-weight:800;font-size:1.4rem;margin:0 0 4px;}
+  .sources .sub{color:var(--muted);font-size:.9rem;margin:0 0 20px;}
+  .src-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px;}
+  .src-col h5{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:0 0 10px;padding-bottom:6px;border-bottom:1px solid var(--rule);display:flex;align-items:center;gap:8px;}
+  .src-col ul{list-style:none;margin:0;padding:0;display:grid;gap:9px;}
+  .src-col li{font-size:.92rem;line-height:1.35;}
+  .src-col li .s2{display:block;color:var(--muted);font-size:.78rem;}
+  .star{color:var(--gold);}
+  footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--rule);color:var(--muted);font-size:.8rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  footer .cjk-f{font-family:var(--cjk);letter-spacing:.1em;}
+
+  @media (max-width:560px){
+    .item{grid-template-columns:70px 1fr;gap:0 14px;}
+    .when .d{font-size:1.2rem;}
+    nav.cats{gap:6px;}
+    nav.cats a{padding:5px 9px;font-size:.7rem;}
+  }
+  @media (prefers-reduced-motion:no-preference){
+    .lead,section,.sources{animation:rise .6s cubic-bezier(.2,.7,.2,1) both;}
+    section:nth-of-type(2){animation-delay:.05s}
+    @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="plate">
+    <div class="toprow"><span>Manhattan · Chinatown 曼哈頓華埠</span><span>Daily Community Dispatch</span></div>
+    <h1 class="title">Chinatown <span class="amp">Bulletin</span></h1>
+    <div class="cjk">華埠快報</div>
+    <p class="dek">Everything worth knowing this week — development, new doors, good eating, and things to do.</p>
+    <div class="botrow">
+      <span>Tuesday, <b>August 11, 2026</b></span>
+      <span>Edition <b>No. 002</b></span>
+      <span><b>32</b> sources aggregated</span>
+      <span>Refreshed <b>daily · 7:00 AM</b></span>
+    </div>
+  </header>
+
+  <nav class="cats" aria-label="Sections">
+    <a href="#lead">Today's Briefing</a>
+    <a href="#dev"><span class="dot red"></span>Development &amp; Politics</a>
+    <a href="#biz"><span class="dot gold"></span>New Openings</a>
+    <a href="#food"><span class="dot plum"></span>Food &amp; Drink</a>
+    <a href="#events"><span class="dot jade"></span>Events &amp; Pop-ups</a>
+    <a href="#sources">Sources</a>
+  </nav>
+
+  <div class="lead" id="lead">
+    <div class="kh"><span>Today's Briefing</span><span class="drop">今日焦點</span></div>
+    <div class="body">
+      <h2>Excavation deepens at the jail site as the neighborhood pushes its housing alternative</h2>
+      <p>Crews have moved into below-grade excavation and pilings work for the $3.9 billion, 16-story detention tower at 125 White Street — what would be the tallest jail in the world — with foundation work expected to continue through the fall toward a projected 2032 completion. Neighbors United Below Canal and Welcome to Chinatown are still pressing their alternative: roughly 1,040 units of affordable housing, a public plaza, and community retail on the same site, a plan now backed by Borough President Mark Levine, Assemblymember Grace Lee, and Council Members Marte, Powers, Won, Krishnan, and Lee. Separately, Chinatown Partnership is opening applications for a new Building Upgrade Fund offering $10,000–$100,000 grants toward storefront and accessibility improvements, with a launch event at the Italian American Museum this Friday.</p>
+      <p>On the culture calendar, <b class="pull">Think!Chinatown turns ten</b> tonight with an archival screening and animated-short premiere at DCTV, ahead of its Mosco Street Block Party on August 30 with hands-on linocut printmaking. Yu &amp; Me Books rounds out the month with an August 20 author talk and an August 21 open mic hosted by Ed Lin. On the food side, keep an eye out for Cavalier, a new Mediterranean spot from the Diner/Monkey Bar team landing at Kimlau Square in late August, and mark your calendar for Send Chinatown Love's month-long "Passport to Chinatown" food crawl kicking off in September across 13 local restaurants and bakeries.</p>
+    </div>
+  </div>
+
+  <section id="dev" class="red">
+    <div class="sec-head"><span class="num">1</span><h3>Development &amp; Politics</h3><span class="cn">城市規劃 · 社區政治</span></div>
+    <div class="items">
+      <div class="item"><div class="when"><div class="d">—</div><div class="mo">Ongoing</div><span class="tag">Land Use</span></div><div class="it-body"><h4>Excavation Underway for $3.9B Manhattan Detention Complex</h4><p>Crews have moved into below-grade excavation and pilings for the 16-story, ~300-foot "jailscraper" at 125 White St. — set to be the world's tallest jail — with foundation work continuing through the fall and completion still projected for 2032.</p><div class="meta"><span class="src">New York YIMBY</span> · <a href="https://newyorkyimby.com/2026/07/earthwork-underway-for-manhattan-detention-center-in-chinatown-manhattan.html">Read more</a></div></div></div>
+      <div class="item"><div class="when"><div class="d">—</div><div class="mo">Ongoing</div><span class="tag">Advocacy</span></div><div class="it-body"><h4>Coalition Keeps Pushing Housing-Over-Jail Alternative</h4><p>Neighbors United Below Canal and Welcome to Chinatown continue advancing a plan to replace the jail tower with ~1,040 units of affordable housing, a 25,000-sq-ft public plaza, and community retail — now backed by Borough President Mark Levine and five City Council members.</p><div class="meta"><span class="src core">Welcome to Chinatown</span> · <a href="https://welcometochinatown.com/megajail">Read more</a></div></div></div>
+      <div class="item"><div class="when"><div class="d">14</div><div class="mo">Aug</div><div class="yr">4:00p</div><span class="tag">Grants</span></div><div class="it-body"><h4>Chinatown Building Upgrade Fund — Launch &amp; Meet-and-Greet</h4><p>Chinatown Partnership introduces a new fund offering $10,000–$100,000 grants for storefront exteriors, ADA access, and signage at the Italian American Museum; applications open through September 7 with on-site language help.</p><div class="meta"><span class="src">Chinatown Partnership</span> · <a href="https://chinatown.nyc/building-upgrade-fund/">Read more</a></div></div></div>
+    </div>
+    <p class="note">Also on the beat: Documented's Chinese-language immigrant reporting, Manhattan Community Boards 2 &amp; 3 land-use agendas, Council Member Marte's office, and The Lo-Down / The City / Hell Gate for neighborhood coverage.</p>
+  </section>
+
+  <section id="biz" class="gold">
+    <div class="sec-head"><span class="num">2</span><h3>New Openings &amp; Small Business</h3><span class="cn">新店開張 · 小商戶</span></div>
+    <div class="items">
+      <div class="item"><div class="when"><div class="d">13</div><div class="mo">Aug</div><div class="yr">2:00p</div><span class="tag">Office Hours</span></div><div class="it-body"><h4>Welcome to Chinatown Office Hours</h4><p>Drop-in office hours with the Welcome to Chinatown team at The Hub (115 Bowery), 2–4 PM, in-person or virtual — for business owners to talk through challenges and support needs.</p><div class="meta"><span class="src core">Welcome to Chinatown</span> · <a href="https://welcometochinatown.com/events">Read more</a></div></div></div>
+      <div class="item"><div class="when"><div class="d">20</div><div class="mo">Aug</div><div class="yr">1:30p</div><span class="tag">Free Consults</span></div><div class="it-body"><h4>NYC BEST Small Business Concierge Hours</h4><p>Free one-on-one consultations with NYC's Dept. of Small Business Services on permits, violations, and regulatory navigation, offered in English and Mandarin at The Hub (115 Bowery).</p><div class="meta"><span class="src core">Welcome to Chinatown</span> · <a href="https://welcometochinatown.com/events/nycbest-august">Read more</a></div></div></div>
+      <div class="item"><div class="when"><div class="d">30</div><div class="mo">Aug</div><div class="yr">Deadline</div><span class="tag">The Hub</span></div><div class="it-body"><h4>"Made on Mott" Storefront Incubator — Applications Open</h4><p>Welcome to Chinatown's rotating pop-up storefront program at 19 Mott St. is accepting applications for a subsidized 3-month brick-and-mortar residency for product and retail businesses.</p><div class="meta"><span class="src core">Welcome to Chinatown</span> · <a href="https://welcometochinatown.com/storefront-incubator-made-on-mott">Read more</a></div></div></div>
+    </div>
+    <p class="note">Checked and quiet today: Send Chinatown Love's microgrant window, Mott Street Girls, and Pearl River Mart's events page had no newly confirmed storefront openings as of this edition.</p>
+  </section>
+
+  <section id="food" class="plum">
+    <div class="sec-head"><span class="num">3</span><h3>Food &amp; Drink</h3><span class="cn">飲食 · 食肆</span></div>
+    <div class="items">
+      <div class="item"><div class="when"><div class="d">—</div><div class="mo">New</div><span class="tag">Dim Sum</span></div><div class="it-body"><h4>Joy Fu Dim Sum</h4><p>New Chinatown xiao long bao spot with an open kitchen window so you can watch soup dumplings hand-folded to order — shrimp, crab roe, and black truffle varieties — plus mapo tofu and spicy mango chicken wings.</p><div class="meta"><span class="src">The Infatuation</span> · <a href="https://www.theinfatuation.com/new-york/reviews/joy-fu-dim-sum">Read more</a></div></div></div>
+      <div class="item"><div class="when"><div class="d">—</div><div class="mo">Soon</div><span class="tag">New Bar</span></div><div class="it-body"><h4>Spring Bar</h4><p>New bar concept from owner Derek Zheng slated for 116 Madison St. (Two Bridges), the former home of That Witch Ales You, with cocktails and a limited food menu of fried taro cake, curry over rice, and salads; liquor license pending before CB3.</p><div class="meta"><span class="src">What Now New York</span> · <a href="https://whatnow.com/new-york/restaurants/new-bar-concept-slated-for-chinatown/">Read more</a></div></div></div>
+      <div class="item"><div class="when"><div class="d">—</div><div class="mo">Late Aug</div><span class="tag">Opening</span></div><div class="it-body"><h4>Cavalier</h4><p>A new 48-seat Mediterranean restaurant from chef Mason Lindahl (Diner, Monkey Bar, Léon 1909) and co-owner Yasmin Kaytmaz lands at 1 East Broadway on the Kimlau Square corner, with mezze and grilled mains.</p><div class="meta"><span class="src">Hoodline</span> · <a href="https://hoodline.com/2026/04/mediterranean-upstart-cavalier-bets-big-on-kimlau-square-corner/">Read more</a></div></div></div>
+      <div class="item"><div class="when"><div class="d">—</div><div class="mo">Sept</div><div class="yr">All Month</div><span class="tag">Food Crawl</span></div><div class="it-body"><h4>Send Chinatown Love Food Crawl</h4><p>Self-guided, month-long crawl spotlighting 13 Chinatown restaurants, bakeries, and cafes; collect stamps in a "Passport to Chinatown" to unlock rewards and weekly giveaways at local businesses.</p><div class="meta"><span class="src">Send Chinatown Love</span> · <a href="https://chinatown.nyc/event/send-chinatown-love-food-crawl/">Read more</a></div></div></div>
+    </div>
+    <p class="note">Tracked via The Infatuation, Eater NY, Grub Street, Resy, and Send Chinatown Love; no new Eater NY, Grub Street, or Resy items met the bar for a genuinely new listing this edition.</p>
+  </section>
+
+  <section id="events" class="jade">
+    <div class="sec-head"><span class="num">4</span><h3>Events &amp; Pop-ups</h3><span class="cn">活動 · 快閃</span></div>
+    <div class="items">
+      <div class="item"><div class="when"><div class="d">11</div><div class="mo">Aug</div><div class="yr">7:00p</div><span class="tag">Film</span></div><div class="it-body"><h4>DCTV Screening: "Through the Years with Think!Chinatown"</h4><p>A retrospective screening at DCTV Firehouse Cinema marking Think!Chinatown's 10th anniversary, pulling archival treasures and premiering a new animated short, as part of the Asian American International Film Festival.</p><div class="meta"><span class="src core">Think!Chinatown</span> · <a href="https://www.thinkchinatown.org/happenings/2026/8/9/dctv-screening-through-the-years-with-thinkchinatown-zp7wz">Read more</a></div></div></div>
+      <div class="item"><div class="when"><div class="d">20</div><div class="mo">Aug</div><div class="yr">7:00p</div><span class="tag">Author Talk</span></div><div class="it-body"><h4>"Nice Places" Book Event</h4><p>A discussion at Yu &amp; Me Books described as philosophical, tender, and hilariously observed.</p><div class="meta"><span class="src core">Yu &amp; Me Books</span> · <a href="https://yuandmebooks.com/pages/events-at-yu-me-books">Read more</a></div></div></div>
+      <div class="item"><div class="when"><div class="d">21</div><div class="mo">Aug</div><div class="yr">8:00p</div><span class="tag">Open Mic</span></div><div class="it-body"><h4>No/pen Mic hosted by Ed Lin</h4><p>Open mic at Yu &amp; Me Books with five-minute slots — all performers welcome. Sign-ups start 7:30 PM.</p><div class="meta"><span class="src core">Yu &amp; Me Books</span> · <a href="https://yuandmebooks.com/pages/events-at-yu-me-books">Read more</a></div></div></div>
+      <div class="item"><div class="when"><div class="d">30</div><div class="mo">Aug</div><div class="yr">4:00p</div><span class="tag">Block Party</span></div><div class="it-body"><h4>Chinatown Block Party</h4><p>Street celebration on Mosco Street featuring Think!Chinatown's 2026 Printmaking Artist leading flow-through workshops with custom Chinatown linocut stamps.</p><div class="meta"><span class="src core">Think!Chinatown</span> · <a href="https://www.thinkchinatown.org/blockparty">Read more</a></div></div></div>
+      <div class="item"><div class="when"><div class="d">15</div><div class="mo">Oct</div><div class="yr">6:00p</div><span class="tag">Benefit</span></div><div class="it-body"><h4>CPC Brooklyn Harvest Moon Benefit</h4><p>Annual fundraising dinner honoring community leaders and supporting Chinese-American Planning Council programs in Brooklyn.</p><div class="meta"><span class="src">Chinese-American Planning Council</span> · <a href="https://give.cpc-nyc.org/event/cpc-brooklyn-harvest-moon-benefit-2026/e819731">Read more</a></div></div></div>
+    </div>
+  </section>
+
+  <div class="sources" id="sources">
+    <h3>The Source List</h3>
+    <p class="sub">Where this bulletin looks every morning. <span class="star">★</span> = your three anchor sources. Grouped by beat.</p>
+    <div class="src-grid">
+      <div class="src-col"><h5><span class="dot red"></span>Development · Politics</h5><ul><li><a href="https://welcometochinatown.com/">Welcome to Chinatown</a> <span class="star">★</span><span class="s2">Mega-jail, advocacy, town halls</span></li><li><a href="https://peoplefirstnyc.org/">Coalition to Protect Chinatown &amp; LES</a><span class="s2">Anti-displacement organizing</span></li><li><a href="https://chinatown.nyc/">Chinatown Partnership</a> / <a href="https://chinatown.nyc/chinatown-bid/">BID</a><span class="s2">Upgrade fund, streetscape, sanitation</span></li><li><a href="https://cbmanhattan.cityofnewyork.us/cb2/calendar/">Manhattan CB2</a> · <a href="https://www.cb3manhattan.org/">CB3</a><span class="s2">Land-use &amp; liquor-license agendas</span></li><li><a href="https://council.nyc.gov/christopher-marte/">Council Member Christopher Marte</a><span class="s2">District 1 local politics</span></li><li><a href="https://documentedny.com/category/english/new-york-immigrant-communities/chinese-community/">Documented</a><span class="s2">Chinese-language immigrant reporting</span></li><li><a href="https://www.thelodownny.com/">The Lo-Down</a> · <a href="https://www.thecity.nyc/">The City</a> · <a href="https://hellgatenyc.com/">Hell Gate</a><span class="s2">Hyperlocal &amp; investigative news</span></li><li><a href="https://www.worldjournal.com/">World Journal 世界日報</a> · <a href="https://www.singtaousa.com/">Sing Tao 星島</a><span class="s2">Chinese-language dailies</span></li></ul></div>
+      <div class="src-col"><h5><span class="dot gold"></span>New Openings · Business</h5><ul><li><a href="https://welcometochinatown.com/hub">WTC Small Business Hub</a> <span class="star">★</span><span class="s2">Spotlights, workshops, openings</span></li><li><a href="https://www.sendchinatownlove.com/">Send Chinatown Love</a><span class="s2">Small-business support &amp; features</span></li><li><a href="https://www.mottstreetgirls.com/">Mott Street Girls</a><span class="s2">Business spotlights &amp; tours</span></li><li><a href="https://pearlriver.com/pages/upcoming-events">Pearl River Mart</a><span class="s2">Retail pop-ups &amp; events</span></li></ul></div>
+      <div class="src-col"><h5><span class="dot plum"></span>Food · Drink</h5><ul><li><a href="https://www.theinfatuation.com/new-york/neighborhoods/chinatown">The Infatuation — Chinatown</a><span class="s2">Reviews &amp; new-opening guides</span></li><li><a href="https://ny.eater.com/maps/best-chinatown-restaurants-nyc">Eater NY — Chinatown</a><span class="s2">Restaurant &amp; bar openings</span></li><li><a href="https://www.grubstreet.com/">Grub Street (NY Mag)</a><span class="s2">Food news &amp; obsessions</span></li><li><a href="https://resy.com/cities/new-york-ny/regions/chinatown">Resy — Chinatown</a><span class="s2">New reservations &amp; hot tables</span></li><li><a href="https://www.sendchinatownlove.com/">Send Chinatown Love</a><span class="s2">Food crawls &amp; restaurant relief</span></li></ul></div>
+      <div class="src-col"><h5><span class="dot jade"></span>Events · Culture</h5><ul><li><a href="https://www.thinkchinatown.org/happenings">Think!Chinatown</a> <span class="star">★</span><span class="s2">Festivals, block parties, arts (RSS)</span></li><li><a href="https://www.yuandmebooks.com/events">Yu &amp; Me Books</a> <span class="star">★</span><span class="s2">Author talks, workshops, open mics</span></li><li><a href="https://luma.com/welcometochinatown">WTC Events (Luma)</a><span class="s2">Hub programming &amp; RSVPs</span></li><li><a href="https://www.index-space.org/">Index Space</a> · <a href="https://56henry.nyc/">56 Henry</a> · <a href="https://www.chinatownsoup.nyc/">Chinatown Soup</a><span class="s2">Downtown gallery scene</span></li><li><a href="https://www.mocanyc.org/">MOCA</a> · <a href="https://www.eldridgestreet.org/">Museum at Eldridge Street</a><span class="s2">Exhibitions &amp; historic tours</span></li><li><a href="https://www.heartofdinner.org/">Heart of Dinner</a><span class="s2">Elder mutual aid &amp; volunteering</span></li><li><a href="https://www.cpc-nyc.org/events">Chinese-American Planning Council</a><span class="s2">Senior, youth &amp; community programs</span></li><li><a href="https://www.nychineseculturalcenter.org/events-1">NY Chinese Cultural Center</a><span class="s2">Chinese dance, lion dance &amp; performance</span></li><li><a href="https://betterchinatown.com/upcoming-events/">Better Chinatown USA</a> · <a href="https://www.thewowproject.com/">W.O.W. Project</a><span class="s2">Parades, LNY &amp; arts activism</span></li></ul></div>
+    </div>
+  </div>
+
+  <footer><span class="cjk-f">華埠快報 · Chinatown Bulletin</span><span>Aggregated for the community of Manhattan Chinatown · Edition No. 002 · Aug 11, 2026</span></footer>
+</div>
+</body>
+</html>
